@@ -1,0 +1,18 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Hello Python
+Name[nl]=Kotnetlogin
+Type=Service
+ServiceTypes=Plasma/Applet
+Icon=chronometer
+X-Plasma-API=python
+X-Plasma-MainScript=code/main.py
+X-KDE-PluginInfo-Author=Thomas Coopman
+X-KDE-PluginInfo-Email=thomas.coopman@gmail.com
+X-KDE-PluginInfo-Name=kotnet-login
+X-KDE-PluginInfo-Version=0.1
+X-KDE-PluginInfo-Website=http://github.com/tcoopman/kotnetplasmoid/tree/master
+X-KDE- PluginInfo-Category=Examples
+X-KDE- PluginInfo-Depends=
+X-KDE- PluginInfo-Depends=GPL
+X-KDE- PluginInfo-EnabledByDefault=true
