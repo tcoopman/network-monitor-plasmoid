@@ -5,6 +5,8 @@ from PyQt4.QtCore import *
 from PyKDE4.kdecore import *
 from PyKDE4 import plasmascript
 
+import kotnetlogin
+
 class PyKotnetEngine(plasmascript.DataEngine):
     def __init__(self,parent,args=None):
         plasmascript.DataEngine.__init__(self,parent)
@@ -23,13 +25,17 @@ class PyKotnetEngine(plasmascript.DataEngine):
     # request a new DataEngine
     def sourceRequestEvent(self, name):
         #create an empty source
-        self.setData(name, self.Data());
+        self.setData(name, self.Data())
+        self.reader = KotnetReader()
     
-        return self.updateSourceEvent(name);
+        return self.updateSourceEvent(name)
 
     def updateSourceEvent(self, name):
         #TODO implement
+        #info = self.reader.login(username, password)
+        #set data to info
         return True
+    
 
 def CreateDataEngine(parent):
     return PyKotnetEngine(parent)

@@ -1,41 +1,56 @@
-#!/usr/bin/python
 # -*- coding: utf-8 -*-
 
 import re
 from mechanize import Browser
 
-username="USER"
-password="PASSWORD"
+class KotnetReader:
+    def __init__(self):
+        self.downloadRe = re.compile("[\w]*download = (\d*) of (\d*)[\w]*")
+        self.uploadRe = re.compile("[\w]*upload = (\d*) of (\d*)[\w]*")
+        self.downUpRe = re.compile ("[\w]*[download|upload] = (\d*) of (\d*)[\w]*")
 
-br = Browser()
-br.open("http://netlogin.kuleuven.be/")
-br.select_form(name="wayf")
-br.submit()
-br.select_form(name="netlogin")
-br[br.form._pairs()[2][0]]=username
-br[br.form._pairs()[3][0]]=password
-result = br.submit()
-lines = [k for k in result.readlines()]
+    def login(self, username, password):
+        html = self._login(username, password)
+        results = self._parse(html)
+        
+        return results
 
-downloadRe = re.compile("[\w]*download = (\d*) of (\d*)[\w]*")
-uploadRe = re.compile("[\w]*upload = (\d*) of (\d*)[\w]*")
+    def _login(self, username, password):
+        br = Browser()
+        br.open("http://netlogin.kuleuven.be/")
+        br.select_form(name="wayf")
+        br.submit()
+        br.select_form(name="netlogin")
+        br[br.form._pairs()[2][0]]=username
+        br[br.form._pairs()[3][0]]=password
+        result = br.submit()
+        lines = [k for k in result.readlines()]
+        br.close()
+        
+        return lines
 
-downUpRe = re.compile ("[\w]*[download|upload] = (\d*) of (\d*)[\w]*")
-revlines = [k for k in lines if downUpRe.search(k)]
-downResults = downloadRe.split(revlines[0])
-upResults = uploadRe.split(revlines[1])
+    def _parseAll(self, lines):
+        revlines = [k for k in lines if self.downUpRe.search(k)]
+        downloadResults = self.downloadRe.split(revlines[0])
+        uploadResults = self.uploadRe.split(revlines[1])
 
-def prettyPrint(results, updown):
-  avail = float(results[1])
-  total = float(results[2])
-  availMb = avail/1024/1024
-  totalMb = total/1024/1024
-  percentage = avail/total*100
-  print("You have still %2.1f%%(%2.2f of %2.2f) left from your %s."%(percentage,availMb,totalMb,updown))
+        info = KotnetInfo()
+        info.download = self._parseSingle(downloadResults)
+        info.upload = self._parseSingle(uploadResults)
 
-print("login succeeded")
-prettyPrint(downResults, "download")
-prettyPrint(upResults, "upload")
+        return uploadResults
+
+    def _parseSingle(self, results):
+        available = float(results[1])
+        total = float(results[2])
+
+        return {"available":available, "total":total}
+        
+class KotnetInfo:
+    def __init__(self):
+        pass
+
+    #TODO add extra information to this class, like succesfully logged in and such
 
   
 
