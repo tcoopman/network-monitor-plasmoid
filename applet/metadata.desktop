@@ -1,7 +1,6 @@
 [Desktop Entry]
 Encoding=UTF-8
-Name=Hello Python
-Name[nl]=Kotnetlogin
+Name=Kotnetlogin
 Type=Service
 ServiceTypes=Plasma/Applet
 Icon=chronometer
