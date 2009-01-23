@@ -1,7 +1,7 @@
 #!/bin/bash
 
-plasmapkg -r kotnet-dataengine
+plasmapkg -t dataengine -r kotnet-dataengine
 rm kotnetlogindataengine.zip
 
-plasmapkg -r kotnet-plasmoid
+plasmapkg -t plasmoid -r kotnet-plasmoid
 rm kotnetloginplasmoid.zip

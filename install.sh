@@ -3,9 +3,9 @@
 cd dataengine
 zip -r ../kotnetlogindataengine.zip .
 cd ..
-plasmapkg -i kotnetlogindataengine.zip
+plasmapkg -t dataengine -i kotnetlogindataengine.zip
 
 cd applet
 zip -r ../kotnetloginplasmoid.zip .
 cd ..
-plasmapkg -i kotnetloginplasmoid.zip
+plasmapkg -t plasmoid -i kotnetloginplasmoid.zip
