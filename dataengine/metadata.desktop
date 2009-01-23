@@ -1,4 +1,5 @@
 [Desktop Entry]
+Encoding=UTF-8
 Name=Python kotnet engine
 Comment=Python kotnet dataengine
 Type=Service
@@ -8,7 +9,7 @@ X-Plasma-API=python
 X-Plasma-MainScript=code/main.py
 X-KDE-PluginInfo-Author=Thomas Coopman
 X-KDE-PluginInfo-Email=thomas.coopman@gmail.com
-X-KDE-PluginInfo-Name=plasma-dataengine-kotnet
+X-KDE-PluginInfo-Name=kotnet-dataengine
 X-KDE-PluginInfo-Version=0.1
 X-KDE-PluginInfo-Website=http://github.com/tcoopman/kotnetplasmoid/tree/master
 X-KDE-PluginInfo-Category=Examples
