@@ -11,7 +11,7 @@ class PyKotnetEngine(plasmascript.DataEngine):
     def __init__(self,parent,args=None):
         plasmascript.DataEngine.__init__(self,parent)
         self.username = "user"
-        self.password = "name"
+        self.password = "pass"
 
     def init(self):
         #update mostly once in a minutes = 1000msec * 60

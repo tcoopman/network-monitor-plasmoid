@@ -20,19 +20,38 @@ class KotnetLoginApplet(plasmascript.Applet):
         self.setBackgroundHints(Plasma.Applet.DefaultBackground)
 
         self.layout = QGraphicsLinearLayout(Qt.Horizontal, self.applet)
-        label = Plasma.Label(self.applet)
-        label.setText("This is kotnet!")
-        self.layout.addItem(label)
+        titleLabel = Plasma.Label(self.applet)
+        titleLabel.setText("This is kotnet!")
+        downloadLabel = Plasma.Label(self.applet)
+        downloadLabel.setText("initial download")
+        self.layout.addItem(titleLabel)
+        self.layout.addItem(downloadLabel)
         self.resize(125,125)
+        #self.connectToEngine()
         
         
-    #def connectToEngine(self):
-        #self.engine = self.dataEngine("Python Kotnet engine")
-        #TODO
+    def connectToEngine(self):
+        print "connecting"
+        self.engine = self.dataEngine("plasma-dataengine-pytime")
+        print "after getting engine"
+        self.timeEngine.connectSource("Local", self, 6000, Plasma.AlignToMinute)
+        #print "connected"
         
-    #@pyqtSignature("dataUpdated(const QString &, const Plasma::DataEngine::Data &)")
-    #def dataUpdated(self, sourceName, data):
-        #TODO
+    @pyqtSignature("dataUpdated(const QString &, const Plasma::DataEngine::Data &)")
+    def dataUpdated(self, sourceName, data):
+        #print "updated"
+        #print data
+        self.update()
+        #print "na self.update()"
+        #self.time = data[QString("Time")].toTime()
+        
+        #if self.time.minute() == self.lastTimeSeen.minute() and \
+        #self.time.second() == self.lastTimeSeen.second():
+            # avoid unnecessary repaints
+         #   return
+            
+          #  self.lastTimeSeen = self.time
+           # self.update()
 
 def CreateApplet(parent):
     return KotnetLoginApplet(parent)
