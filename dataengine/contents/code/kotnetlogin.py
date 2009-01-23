@@ -11,7 +11,7 @@ class KotnetReader:
 
     def login(self, username, password):
         html = self._login(username, password)
-        info = self._parse(html)
+        info = self._parseAll(html)
         
         return info
 
@@ -38,11 +38,13 @@ class KotnetReader:
         info.download = self._parseSingle(downloadResults)
         info.upload = self._parseSingle(uploadResults)
 
-        return uploadResults
+        return info
 
     def _parseSingle(self, results):
         available = float(results[1])
         total = float(results[2])
+        print available
+        print total
 
         return {"available":available, "total":total}
         
