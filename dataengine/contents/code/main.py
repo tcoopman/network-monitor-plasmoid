@@ -10,8 +10,8 @@ from kotnetlogin import KotnetReader
 class PyKotnetEngine(plasmascript.DataEngine):
     def __init__(self,parent,args=None):
         plasmascript.DataEngine.__init__(self,parent)
-        self.username = "USER"
-        self.password = "PASS"
+        self.username = "user"
+        self.password = "name"
 
     def init(self):
         #update mostly once in a minutes = 1000msec * 60
@@ -39,7 +39,10 @@ class PyKotnetEngine(plasmascript.DataEngine):
         #TODO implement
         info = self.reader.login(self.username, self.password)
         #set data to info
-        self.setData(name, "downloadAvailable", QVariant(info.download.available))
+        self.setData(name, "downloadAvailable", QVariant(info.download["available"]))
+        self.setData(name, "downloadTotal", QVariant(info.download["total"]))
+        self.setData(name, "uploadAvailable", QVariant(info.upload["available"]))
+        self.setData(name, "uploadTotal", QVariant(info.upload["total"]))
         return True
     
 
