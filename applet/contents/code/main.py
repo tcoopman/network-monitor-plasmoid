@@ -7,7 +7,6 @@ from PyKDE4 import plasmascript
 
 class KotnetLoginApplet(plasmascript.Applet):
     def __init__(self,parent,args=None):
-        
         plasmascript.Applet.__init__(self,parent)
 
     def init(self):
