@@ -18,21 +18,54 @@ class KotnetLoginApplet(plasmascript.Applet):
         self.theme = Plasma.Svg(self)
         self.theme.setImagePath("widgets/background")
         self.setBackgroundHints(Plasma.Applet.DefaultBackground)
-
-        self.layout = QGraphicsLinearLayout(Qt.Horizontal, self.applet)
-        titleLabel = Plasma.Label(self.applet)
-        titleLabel.setText("This is kotnet!")
-        downloadLabel = Plasma.Label(self.applet)
-        downloadLabel.setText("initial download")
-        self.layout.addItem(titleLabel)
-        self.layout.addItem(downloadLabel)
-        self.resize(125,125)
+        
+        self.initGui()
+        
         #self.connectToEngine()
         
+    def initGui(self):
+        self.layout = QGraphicsLinearLayout(Qt.Vertical, self.applet)
+        
+        downMeter = self._createMeter("download")
+        upMeter = self._createMeter("upload")
+        self.meters = [downMeter, upMeter]
+        for meter in self.meters:
+            self.layout.addItem(meter)
+        
+        self.resize(250,250)
+        
+    def _createMeter(self, title):
+        meter = Plasma.Meter()
+        meter.setMeterType(Plasma.Meter.BarMeterHorizontal)
+        meter.setLabel(0, title);
+        self._setTheme(meter)
+        return meter
+        
+    def _setTheme(self, meter):
+        theme = Plasma.Theme.defaultTheme();
+        text = theme.color(Plasma.Theme.TextColor)
+        background = theme.color(Plasma.Theme.BackgroundColor)
+        darkerText = QColor(
+        (text.red() + background.red()) / 2, 
+        (text.green() + background.green()) / 2,                     (text.blue() + background.blue()) / 2,
+        (text.alpha() + background.alpha()) / 2)
+        meter.setLabelColor(0, text)
+        meter.setLabelColor(1, darkerText)
+        meter.setLabelColor(2, darkerText)
+        font = theme.font(Plasma.Theme.DefaultFont)
+        font.setPointSize(9)
+        meter.setLabelFont(0, font)
+        font.setPointSizeF(7.5)
+        meter.setLabelFont(1, font)
+        meter.setLabelFont(2, font)
+        
+    def themeChanged(self):
+        for meter in self.meters:
+            self._setTheme(meter)
         
     def connectToEngine(self):
         print "connecting"
-        self.engine = self.dataEngine("plasma-dataengine-pytime")
+        self.engine = self.dataEngine("kotnet-dataengine")
         print "after getting engine"
         self.timeEngine.connectSource("Local", self, 6000, Plasma.AlignToMinute)
         #print "connected"
