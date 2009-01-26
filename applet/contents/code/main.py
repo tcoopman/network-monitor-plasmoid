@@ -19,8 +19,12 @@ class KotnetLoginApplet(plasmascript.Applet):
         self.theme.setImagePath("widgets/background")
         self.setBackgroundHints(Plasma.Applet.DefaultBackground)
         
+        self.count = 0
+        
         self.initGui()
         
+        Plasma.Theme.defaultTheme().connect(Plasma.Theme.defaultTheme(), SIGNAL("themeChanged()"), self, SLOT("slotThemeChanged()"))
+    
         #self.connectToEngine()
         
     def initGui(self):
@@ -58,7 +62,10 @@ class KotnetLoginApplet(plasmascript.Applet):
         font.setPointSizeF(7.5)
         meter.setLabelFont(1, font)
         meter.setLabelFont(2, font)
+        meter.setLabel(1, str(self.count))
+        self.count +=1
         
+    @pyqtSignature("slotThemeChanged()")  
     def themeChanged(self):
         for meter in self.meters:
             self._setTheme(meter)
