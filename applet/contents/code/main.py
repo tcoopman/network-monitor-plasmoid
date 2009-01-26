@@ -34,10 +34,12 @@ class KotnetLoginApplet(plasmascript.Applet):
         
     def initGui(self):
         self.layout = QGraphicsLinearLayout(Qt.Vertical, self.applet)
+        self.layout.setContentsMargins(3, 3, 3, 3)
+        self.layout.setSpacing(5);
         
-        downMeter = self._createMeter("download")
-        upMeter = self._createMeter("upload")
-        self.meters = {"download": downMeter, "upload":upMeter}
+        self.meters = {
+                "download": self._createMeter("download"), "upload":self._createMeter("upload")
+        }
         for meter in self.meters.values():
             self.layout.addItem(meter)
         
