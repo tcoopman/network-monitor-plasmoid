@@ -19,21 +19,27 @@ class KotnetLoginApplet(plasmascript.Applet):
         self.theme.setImagePath("widgets/background")
         self.setBackgroundHints(Plasma.Applet.DefaultBackground)
         
-        self.count = 0
-        
         self.initGui()
         
         Plasma.Theme.defaultTheme().connect(Plasma.Theme.defaultTheme(), SIGNAL("themeChanged()"), self, SLOT("slotThemeChanged()"))
     
         #self.connectToEngine()
         
+        #some tests:
+        self.meters["download"].setValue(50)
+        self.meters["download"].setLabel(2, str(50))
+        self.meters["download"].setLabel(1, str(100))
+        self.meters["upload"].setValue(24)
+        self.meters["upload"].setLabel(2, str(24))
+        self.meters["upload"].setLabel(1, str(100))
+        
     def initGui(self):
         self.layout = QGraphicsLinearLayout(Qt.Vertical, self.applet)
         
         downMeter = self._createMeter("download")
         upMeter = self._createMeter("upload")
-        self.meters = [downMeter, upMeter]
-        for meter in self.meters:
+        self.meters = {"download": downMeter, "upload":upMeter}
+        for meter in self.meters.values():
             self.layout.addItem(meter)
         
         self.resize(250,250)
@@ -43,6 +49,10 @@ class KotnetLoginApplet(plasmascript.Applet):
         meter.setMeterType(Plasma.Meter.BarMeterHorizontal)
         meter.setLabel(0, title);
         self._setTheme(meter)
+        meter.setLabelAlignment(0, Qt.AlignVCenter | Qt.AlignLeft)
+        meter.setLabelAlignment(1, Qt.AlignVCenter | Qt.AlignRight)
+        meter.setLabelAlignment(2, Qt.AlignVCenter | Qt.AlignCenter)
+        
         return meter
         
     def _setTheme(self, meter):
@@ -62,12 +72,10 @@ class KotnetLoginApplet(plasmascript.Applet):
         font.setPointSizeF(7.5)
         meter.setLabelFont(1, font)
         meter.setLabelFont(2, font)
-        meter.setLabel(1, str(self.count))
-        self.count +=1
         
     @pyqtSignature("slotThemeChanged()")  
     def themeChanged(self):
-        for meter in self.meters:
+        for meter in self.meters.values():
             self._setTheme(meter)
         
     def connectToEngine(self):
@@ -81,6 +89,9 @@ class KotnetLoginApplet(plasmascript.Applet):
     def dataUpdated(self, sourceName, data):
         #print "updated"
         #print data
+        self.meters["download"].setValue(50)
+        self.meters["download"].setLabel(1, str(50))
+        self.meters["download"].setLabel(2, str(100))
         self.update()
         #print "na self.update()"
         #self.time = data[QString("Time")].toTime()
