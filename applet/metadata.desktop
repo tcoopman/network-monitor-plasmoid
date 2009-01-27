@@ -1,6 +1,7 @@
 [Desktop Entry]
 Encoding=UTF-8
-Name=Kotnetlogin
+Name=Login Monitor
+Comment=With this applet you can monitor your upload and download status from your provider
 Type=Service
 ServiceTypes=Plasma/Applet
 Icon=chronometer
@@ -8,10 +9,10 @@ X-Plasma-API=python
 X-Plasma-MainScript=code/main.py
 X-KDE-PluginInfo-Author=Thomas Coopman
 X-KDE-PluginInfo-Email=thomas.coopman@gmail.com
-X-KDE-PluginInfo-Name=kotnet-plasmoid
+X-KDE-PluginInfo-Name=network-monitor-plasmoid
 X-KDE-PluginInfo-Version=0.1
 X-KDE-PluginInfo-Website=http://github.com/tcoopman/kotnetplasmoid/tree/master
-X-KDE- PluginInfo-Category=Examples
+X-KDE- PluginInfo-Category=Network
 X-KDE- PluginInfo-Depends=
 X-KDE- PluginInfo-Depends=GPL
 X-KDE- PluginInfo-EnabledByDefault=true

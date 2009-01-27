@@ -7,7 +7,7 @@ from PyKDE4 import plasmascript
 
 from kotnetlogin import KotnetReader
 
-class PyKotnetEngine(plasmascript.DataEngine):
+class NetworkMonitorEngine(plasmascript.DataEngine):
     def __init__(self,parent,args=None):
         plasmascript.DataEngine.__init__(self,parent)
         self.username = "user"
@@ -47,4 +47,4 @@ class PyKotnetEngine(plasmascript.DataEngine):
     
 
 def CreateDataEngine(parent):
-    return PyKotnetEngine(parent)
+    return NetworkMonitorEngine(parent)

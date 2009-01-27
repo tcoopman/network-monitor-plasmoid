@@ -1,5 +1,5 @@
 #!/bin/bash
 
 ./install.sh
-plasmoidviewer kotnet-plasmoid 
+plasmoidviewer network-monitor-plasmoid 
 ./remove.sh

@@ -23,10 +23,10 @@ install:
     >>plasmapkg -t plasmoid -i kotnetloginplasmoid.zip 
 
 you can test the dataengine with the plasmaengineexplorer:
-    >>plasmaengineexplorer --engine kotnet-dataengine
+    >>plasmaengineexplorer --engine network-monitor-dataengine
     
 and the plasmoid with:
-    >>plasmoidviewer kotnet-plasmoid
+    >>plasmoidviewer network-monitor-plasmoid
 
 or you can add it just as you would add any other plasmaoid (the name is kotnet-plasmoid
 
@@ -34,5 +34,5 @@ building by hand:
     just make a zip of the applet folder and of the dataengine folder and install the same way as if you would install the downloaded zip files
 
 uninstall:
-    >>plasmapkg -t dataengine -r kotnet-dataengine
-    >>plasmapkg -t plasmoid -r kotnet-plasmoid
+    >>plasmapkg -t dataengine -r network-monitor-dataengine
+    >>plasmapkg -t plasmoid -r network-monitor-plasmoid

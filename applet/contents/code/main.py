@@ -7,7 +7,7 @@ from PyKDE4.plasma import Plasma
 from PyKDE4 import plasmascript
 from LoginMonitorConfig import *
 
-class KotnetLoginApplet(plasmascript.Applet):
+class LoginMonitorApplet(plasmascript.Applet):
     def __init__(self,parent,args=None):
         plasmascript.Applet.__init__(self,parent)
 
@@ -133,4 +133,4 @@ class KotnetLoginApplet(plasmascript.Applet):
         print "accepted"
 
 def CreateApplet(parent):
-    return KotnetLoginApplet(parent)
+    return LoginMonitorApplet(parent)
