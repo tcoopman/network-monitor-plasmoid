@@ -50,6 +50,8 @@ class LoginMonitorApplet(plasmascript.Applet):
         
         self.resize(250,250)
         
+        self.initWallet()
+        
     def _createMeter(self, title):
         meter = Plasma.Meter()
         meter.setMeterType(Plasma.Meter.BarMeterHorizontal)
@@ -136,6 +138,40 @@ class LoginMonitorApplet(plasmascript.Applet):
         providers.append("provider 1")
         providers.append("provider 2")
         kcombo.addItems(providers)
+        
+    def initWallet(self):
+        w = self.view().winId()
+        #FIXME possible that self.view() is not valid
+        self.wallet = KWallet.Wallet.openWallet(KWallet.Wallet.NetworkWallet(), w, KWallet.Wallet.Asynchronous)
+        KWallet.Wallet.connect(self.wallet, SIGNAL("walletOpened(bool)"), self._initWallet)
+        
+    def _initWallet(self, success):
+        if success:
+            self.wallet.createFolder("Plasma-NetworkMonitor")
+            self.wallet.setFolder("Plasma-NetworkMonitor")
+            for i in self.wallet.folderList():
+                print i
+        
+        self.password = QString()
+        self.writeWallet()
+        self.readWallet()
+        print self.password
+                    
+    def writeWallet(self):
+        if self.wallet.isOpen():
+            result = self.wallet.writePassword("test", "passwordTest")
+            if result == 0:
+                print "successfully put password in wallet, removing from config file"
+            else:
+                print "failed"
+                                
+    def readWallet(self):
+        if self.wallet.isOpen():
+            result = self.wallet.readPassword("test", self.password)
+            if result == 0:
+                print "read password ok"
+            else:
+                print "could not read password"
         
     @pyqtSignature("configAccepted()")
     def configAccepted(self):
