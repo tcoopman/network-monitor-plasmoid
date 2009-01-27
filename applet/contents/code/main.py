@@ -26,6 +26,7 @@ class LoginMonitorApplet(plasmascript.Applet):
         
         Plasma.Theme.defaultTheme().connect(Plasma.Theme.defaultTheme(), SIGNAL("themeChanged()"), self, SLOT("slotThemeChanged()"))
     
+        #doesn't work for now, big crash :-S
         #self.connectToEngine()
         
         #some tests:
@@ -85,9 +86,9 @@ class LoginMonitorApplet(plasmascript.Applet):
         
     def connectToEngine(self):
         print "connecting"
-        self.engine = self.dataEngine("kotnet-dataengine")
+        self.engine = self.dataEngine("network-monitor-dataengine")
         print "after getting engine"
-        self.timeEngine.connectSource("Local", self, 6000, Plasma.AlignToMinute)
+        self.engine.connectSource("Local", self, 6000, Plasma.AlignToMinute)
         #print "connected"
         
     @pyqtSignature("dataUpdated(const QString &, const Plasma::DataEngine::Data &)")
