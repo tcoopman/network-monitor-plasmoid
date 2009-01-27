@@ -52,6 +52,11 @@ class LoginMonitorApplet(plasmascript.Applet):
         
         self.initWallet()
         
+        
+        #TODO check if the configuration is saved allready
+        #if not setConfigurationRequired + write good message
+        self.setConfigurationRequired(True, "message")
+        
     def _createMeter(self, title):
         meter = Plasma.Meter()
         meter.setMeterType(Plasma.Meter.BarMeterHorizontal)
