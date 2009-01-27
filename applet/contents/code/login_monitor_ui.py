@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'loginMonitor.ui'
 #
-# Created: Tue Jan 27 17:01:09 2009
+# Created: Tue Jan 27 17:38:51 2009
 #      by: PyQt4 UI code generator 4.4.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -37,11 +37,11 @@ class Ui_LoginConfig(object):
         self.gridLayout.addWidget(self.label_4, 8, 1, 1, 1)
         self.horizontalLayout_2 = QtGui.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
-        self.historyRefreshSpinBox = QtGui.QSpinBox(LoginConfig)
-        self.historyRefreshSpinBox.setMinimum(1)
-        self.historyRefreshSpinBox.setMaximum(999)
-        self.historyRefreshSpinBox.setObjectName("historyRefreshSpinBox")
-        self.horizontalLayout_2.addWidget(self.historyRefreshSpinBox)
+        self.updateIntervalSpinBox = QtGui.QSpinBox(LoginConfig)
+        self.updateIntervalSpinBox.setMinimum(1)
+        self.updateIntervalSpinBox.setMaximum(999)
+        self.updateIntervalSpinBox.setObjectName("updateIntervalSpinBox")
+        self.horizontalLayout_2.addWidget(self.updateIntervalSpinBox)
         spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem)
         self.gridLayout.addLayout(self.horizontalLayout_2, 8, 2, 1, 1)
@@ -80,19 +80,19 @@ class Ui_LoginConfig(object):
         spacerItem3 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
         self.gridLayout.addItem(spacerItem3, 2, 1, 1, 1)
         self.label_2.setBuddy(self.passwordEdit)
-        self.label_4.setBuddy(self.historyRefreshSpinBox)
+        self.label_4.setBuddy(self.updateIntervalSpinBox)
         self.label.setBuddy(self.usernameEdit)
 
         self.retranslateUi(LoginConfig)
         QtCore.QMetaObject.connectSlotsByName(LoginConfig)
         LoginConfig.setTabOrder(self.usernameEdit, self.passwordEdit)
-        LoginConfig.setTabOrder(self.passwordEdit, self.historyRefreshSpinBox)
+        LoginConfig.setTabOrder(self.passwordEdit, self.updateIntervalSpinBox)
 
     def retranslateUi(self, LoginConfig):
         self.label_2.setText(QtGui.QApplication.translate("LoginConfig", "Password:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_7.setText(QtGui.QApplication.translate("LoginConfig", "Appearance", None, QtGui.QApplication.UnicodeUTF8))
         self.label_4.setText(QtGui.QApplication.translate("LoginConfig", "Refresh:", None, QtGui.QApplication.UnicodeUTF8))
-        self.historyRefreshSpinBox.setSuffix(QtGui.QApplication.translate("LoginConfig", " minutes", None, QtGui.QApplication.UnicodeUTF8))
+        self.updateIntervalSpinBox.setSuffix(QtGui.QApplication.translate("LoginConfig", " minutes", None, QtGui.QApplication.UnicodeUTF8))
         self.label.setText(QtGui.QApplication.translate("LoginConfig", "Username:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_6.setText(QtGui.QApplication.translate("LoginConfig", "Login", None, QtGui.QApplication.UnicodeUTF8))
         self.label_3.setText(QtGui.QApplication.translate("LoginConfig", "Service", None, QtGui.QApplication.UnicodeUTF8))

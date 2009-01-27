@@ -125,12 +125,37 @@ class LoginMonitorApplet(plasmascript.Applet):
             
             self.connect(self.dialog, SIGNAL("applyClicked()"), self, SLOT("configAccepted()"))
             self.connect(self.dialog, SIGNAL("okClicked()"), self, SLOT("configAccepted()"))
+            
+        self._fillProviders(self.ui.providerComboBox)
         
         self.dialog.show()
+        
+    def _fillProviders(self, kcombo):
+        providers = QStringList()
+        providers.append("provider 1")
+        providers.append("provider 2")
+        kcombo.addItems(providers)
         
     @pyqtSignature("configAccepted()")
     def configAccepted(self):
         print "accepted"
+        print(self.config())
+        cg = self.config()
+        cg.writeEntry("provider", self.ui.providerComboBox.currentText())
+        cg.writeEntry("name", self.ui.usernameEdit.text())
+        cg.writeEntry("password", self.ui.passwordEdit.text())
+        cg.writeEntry("updateInterval", QVariant(self.ui.updateIntervalSpinBox.value()))
+        
+        print cg.readEntry("provider")
+        print cg.readEntry("name")
+        print cg.readEntry("password")
+        #toInt() returns tupple, first the int, second a Bool, True if succeded, False else
+        print cg.readEntry("updateInterval", QVariant(0)).toInt()[0]
+        
+        self.emit(SIGNAL("configNeedsSaving()"))
+            
+        
+        
 
 def CreateApplet(parent):
     return LoginMonitorApplet(parent)
