@@ -2,8 +2,10 @@
 # Copyright stuff
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
+from PyKDE4.kdeui import *
 from PyKDE4.plasma import Plasma
 from PyKDE4 import plasmascript
+from LoginMonitorConfig import *
 
 class KotnetLoginApplet(plasmascript.Applet):
     def __init__(self,parent,args=None):
@@ -11,12 +13,14 @@ class KotnetLoginApplet(plasmascript.Applet):
 
     def init(self):
 
-        self.setHasConfigurationInterface(False)
+        self.setHasConfigurationInterface(True)
         self.setAspectRatioMode(Plasma.Square)
 
         self.theme = Plasma.Svg(self)
         self.theme.setImagePath("widgets/background")
         self.setBackgroundHints(Plasma.Applet.DefaultBackground)
+        
+        self.dialog = None
         
         self.initGui()
         
@@ -104,6 +108,29 @@ class KotnetLoginApplet(plasmascript.Applet):
             
           #  self.lastTimeSeen = self.time
            # self.update()
+           
+           
+    def showConfigurationInterface(self):
+        windowTitle = str(self.applet.name()) + " Settings" #i18nc("@title:window", "%s Settings" % str(self.applet.name()))
+                       
+        if self.dialog is None:
+            self.dialog = KDialog(None)
+            self.dialog.setWindowTitle(windowTitle)
+                   
+            self.ui = LoginMonitorConfig(self.dialog)
+            self.dialog.setMainWidget(self.ui)
+            
+            self.dialog.setButtons(KDialog.ButtonCodes(KDialog.ButtonCode(KDialog.Ok | KDialog.Cancel | KDialog.Apply)))
+            self.dialog.showButton(KDialog.Apply, False)
+            
+            self.connect(self.dialog, SIGNAL("applyClicked()"), self, SLOT("configAccepted()"))
+            self.connect(self.dialog, SIGNAL("okClicked()"), self, SLOT("configAccepted()"))
+        
+        self.dialog.show()
+        
+    @pyqtSignature("configAccepted()")
+    def configAccepted(self):
+        print "accepted"
 
 def CreateApplet(parent):
     return KotnetLoginApplet(parent)
