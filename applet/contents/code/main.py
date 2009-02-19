@@ -26,8 +26,7 @@ class LoginMonitorApplet(plasmascript.Applet):
         
         Plasma.Theme.defaultTheme().connect(Plasma.Theme.defaultTheme(), SIGNAL("themeChanged()"), self, SLOT("slotThemeChanged()"))
     
-        #doesn't work for now, big crash :-S
-        #self.connectToEngine()
+        self.connectToEngine()
         
         #some tests:
         self.meters["download"].setValue(50)
@@ -95,13 +94,15 @@ class LoginMonitorApplet(plasmascript.Applet):
         print "connecting"
         self.engine = self.dataEngine("network-monitor-dataengine")
         print "after getting engine"
+        #TODO get list of available providers
+        # fill providers
         self.engine.connectSource("Local", self, 6000, Plasma.AlignToMinute)
         #print "connected"
         
     @pyqtSignature("dataUpdated(const QString &, const Plasma::DataEngine::Data &)")
     def dataUpdated(self, sourceName, data):
-        #print "updated"
-        #print data
+        print "updated"
+        print data
         self.meters["download"].setValue(50)
         self.meters["download"].setLabel(1, str(50))
         self.meters["download"].setLabel(2, str(100))
@@ -117,6 +118,27 @@ class LoginMonitorApplet(plasmascript.Applet):
           #  self.lastTimeSeen = self.time
            # self.update()
            
+      
+    ##what's the difference between create and show?
+    #@pyqtSignature("createConfigurationInterface(KConfigDialog *parent)")
+    #def createConfigurationInterface(self, parent):
+        #self.connect(parent, SIGNAL(applyClicked()), this.configAccepted())
+        #self.connect(parent, SIGNAL(okClicked()), this.configAccepted())
+               
+        #configWidget = QWidget()
+        #self.ConfigUi = LoginMonitorConfig(configWidget)
+        
+               ##configUi.serviceUrlCombo->addItem("http://identi.ca/api/");
+               ##configUi.serviceUrlCombo->addItem("http://twitter.com/");
+               ##configUi.serviceUrlCombo->setEditText(m_serviceUrl);
+               ##configUi.usernameEdit->setText(m_username);
+               ##configUi.passwordEdit->setText(m_password);
+               ##configUi.historySizeSpinBox->setValue(m_historySize);
+               ##configUi.historyRefreshSpinBox->setValue(m_historyRefresh);
+               ##configUi.checkIncludeFriends->setChecked(m_includeFriends);
+               
+        #parent.addPage(configWidget, i18n("General"), icon())
+               
            
     def showConfigurationInterface(self):
         windowTitle = str(self.applet.name()) + " Settings" #i18nc("@title:window", "%s Settings" % str(self.applet.name()))
