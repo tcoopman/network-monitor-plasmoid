@@ -11,7 +11,7 @@ class NetworkMonitorEngine(plasmascript.DataEngine):
     def __init__(self,parent,args=None):
         plasmascript.DataEngine.__init__(self,parent)
         self.username = "user"
-        self.password = "pass"
+        self.password = "name"
 
     def init(self):
         #update mostly once in a minutes = 1000msec * 60
@@ -20,8 +20,8 @@ class NetworkMonitorEngine(plasmascript.DataEngine):
         self.setPollingInterval(1000 * 60 * 10)
 
     def sources(self):
-        self.sources = []
-        return self.sources
+        sources = []
+        return sources
         #sources.extend(KSystemTimeZones.zones().keys())
         #return sources
         #pass
@@ -30,7 +30,7 @@ class NetworkMonitorEngine(plasmascript.DataEngine):
     def sourceRequestEvent(self, name):
         #create an empty source
         print(name)
-        self.sources.append(name)
+        self.sources().append(name)
         self.reader = KotnetReader()
     
         return self.updateSourceEvent(name)
